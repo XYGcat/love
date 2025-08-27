@@ -108,7 +108,6 @@ function createButterflies() {
             butterfly.innerHTML = '🦋';
             butterfly.style.left = Math.random() * 100 + '%';
             butterfly.style.top = Math.random() * 100 + '%';
-            butterfly.style.color = `rgb(0, ${Math.floor(Math.random() * 100 + 100)}, ${Math.floor(Math.random() * 150 + 100)})`;
             
             // 添加点击事件，点击蝴蝶进入隐藏页面
             butterfly.addEventListener('click', showHiddenPage);
@@ -127,9 +126,9 @@ function animateButterfly(butterfly) {
     let posX = parseFloat(butterfly.style.left);
     let posY = parseFloat(butterfly.style.top);
     
-    // 设置随机飞行速度和方向
-    let speedX = (Math.random() - 0.5) * 2;
-    let speedY = (Math.random() - 0.5) * 2;
+    // 设置随机飞行速度和方向（降低速度）
+    let speedX = (Math.random() - 0.5) * 0.5; // 降低速度到原来的一半
+    let speedY = (Math.random() - 0.5) * 0.5; // 降低速度到原来的一半
     
     function move() {
         // 更新位置
@@ -149,7 +148,7 @@ function animateButterfly(butterfly) {
         butterfly.style.top = posY + '%';
         
         // 添加轻微旋转效果
-        butterfly.style.transform = `rotate(${Math.sin(Date.now() / 200) * 10}deg)`;
+        butterfly.style.transform = `rotate(${Math.sin(Date.now() / 1000) * 10}deg)`; // 降低旋转速度
         
         // 继续动画
         requestAnimationFrame(move);
