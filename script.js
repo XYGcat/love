@@ -54,6 +54,9 @@ function showLoveResponse() {
             
             // 在回应页面添加最终动画
             animateFinalHearts();
+            
+            // 创建蝴蝶
+            createButterflies();
         }, 800);
     }, 2000);
 }
@@ -91,6 +94,80 @@ function animateFinalHearts() {
         heart.style.animationDelay = `${index * 0.5}s`;
         heart.style.animation = 'pulse 2s ease-in-out infinite';
     });
+}
+
+// 创建蝴蝶
+function createButterflies() {
+    const butterflyContainer = document.getElementById('butterflyContainer');
+    const butterflyCount = 15;
+    
+    for (let i = 0; i < butterflyCount; i++) {
+        setTimeout(() => {
+            const butterfly = document.createElement('div');
+            butterfly.className = 'butterfly';
+            butterfly.innerHTML = '🦋';
+            butterfly.style.left = Math.random() * 100 + '%';
+            butterfly.style.top = Math.random() * 100 + '%';
+            butterfly.style.color = `rgb(0, ${Math.floor(Math.random() * 100 + 100)}, ${Math.floor(Math.random() * 150 + 100)})`;
+            
+            // 添加点击事件，点击蝴蝶进入隐藏页面
+            butterfly.addEventListener('click', showHiddenPage);
+            
+            butterflyContainer.appendChild(butterfly);
+            
+            // 开始蝴蝶飞行动画
+            animateButterfly(butterfly);
+        }, i * 300);
+    }
+}
+
+// 蝴蝶飞行动画
+function animateButterfly(butterfly) {
+    // 设置随机初始位置
+    let posX = parseFloat(butterfly.style.left);
+    let posY = parseFloat(butterfly.style.top);
+    
+    // 设置随机飞行速度和方向
+    let speedX = (Math.random() - 0.5) * 2;
+    let speedY = (Math.random() - 0.5) * 2;
+    
+    function move() {
+        // 更新位置
+        posX += speedX;
+        posY += speedY;
+        
+        // 边界检测和反弹
+        if (posX <= 0 || posX >= 100) {
+            speedX *= -1;
+        }
+        if (posY <= 0 || posY >= 100) {
+            speedY *= -1;
+        }
+        
+        // 应用新位置
+        butterfly.style.left = posX + '%';
+        butterfly.style.top = posY + '%';
+        
+        // 添加轻微旋转效果
+        butterfly.style.transform = `rotate(${Math.sin(Date.now() / 200) * 10}deg)`;
+        
+        // 继续动画
+        requestAnimationFrame(move);
+    }
+    
+    move();
+}
+
+// 显示隐藏页面
+function showHiddenPage() {
+    const hiddenPage = document.getElementById('hiddenPage');
+    hiddenPage.style.display = 'flex';
+}
+
+// 关闭隐藏页面
+function closeHiddenPage() {
+    const hiddenPage = document.getElementById('hiddenPage');
+    hiddenPage.style.display = 'none';
 }
 
 // 添加CSS动画

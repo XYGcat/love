@@ -206,6 +206,9 @@ body {
 .response-container {
     text-align: center;
     animation: fadeIn 1s ease-in;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .response-content h2 {
@@ -223,6 +226,90 @@ body {
 
 .final-hearts {
     margin-top: 40px;
+}
+
+/* 蝴蝶容器 */
+.butterfly-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.butterfly {
+    position: absolute;
+    font-size: 30px;
+    pointer-events: auto;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s;
+    z-index: 100;
+}
+
+.butterfly:hover {
+    transform: scale(1.2);
+}
+
+/* 隐藏页面 */
+.hidden-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.hidden-content {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    text-align: center;
+    margin: 20px;
+}
+
+.hidden-content h2 {
+    color: #3366cc;
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-family: 'Ma Shan Zheng', cursive;
+}
+
+.hidden-content p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.back-btn {
+    font-size: 18px;
+    padding: 12px 30px;
+    background: linear-gradient(45deg, #3366cc, #6699ff);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(51, 102, 204, 0.4);
+    margin-top: 20px;
+}
+
+.back-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(51, 102, 204, 0.6);
 }
 
 /* 音乐控制按钮 */
@@ -258,6 +345,18 @@ body {
     .response-content p {
         font-size: 20px;
     }
+
+    .hidden-content {
+        padding: 20px;
+    }
+
+    .hidden-content h2 {
+        font-size: 28px;
+    }
+
+    .hidden-content p {
+        font-size: 16px;
+    }
 }
 
 @keyframes fadeIn {
@@ -273,5 +372,23 @@ body {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes butterflyFly {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(5px, -5px) rotate(5deg);
+    }
+    50% {
+        transform: translate(0, -10px) rotate(0deg);
+    }
+    75% {
+        transform: translate(-5px, -5px) rotate(-5deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(0deg);
     }
 }
