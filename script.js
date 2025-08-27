@@ -12,6 +12,15 @@ document.addEventListener('DOMContentLoaded', function() {
 function startLoveLetter() {
     const openingScreen = document.querySelector('.opening-screen');
     const letterContainer = document.querySelector('.letter-container');
+    const bgMusic = document.getElementById('bgMusic');
+    
+    // 播放背景音乐
+    bgMusic.volume = 0.6; // 设置音量为60%
+    bgMusic.play().catch(error => {
+        console.log('音乐播放失败，可能是浏览器策略限制:', error);
+        // 显示音乐播放提示
+        showMusicHint();
+    });
     
     // 添加淡出动画
     openingScreen.style.animation = 'fadeOut 0.8s ease-in-out forwards';
@@ -223,3 +232,67 @@ window.addEventListener('resize', function() {
         container.style.padding = '20px';
     }
 });
+
+// 显示音乐播放提示
+function showMusicHint() {
+    const hint = document.createElement('div');
+    hint.innerHTML = '🎵 点击任意位置启用音乐播放';
+    hint.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 107, 107, 0.9);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 20px;
+        font-size: 14px;
+        z-index: 1000;
+        animation: fadeInOut 3s ease-in-out;
+    `;
+    
+    document.body.appendChild(hint);
+    
+    setTimeout(() => {
+        hint.remove();
+    }, 3000);
+}
+
+// 添加音乐控制按钮
+function addMusicControls() {
+    const musicBtn = document.createElement('button');
+    musicBtn.innerHTML = '🎵';
+    musicBtn.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        transition: all 0.3s ease;
+    `;
+    
+    let isPlaying = true;
+    
+    musicBtn.onclick = function() {
+        const bgMusic = document.getElementById('bgMusic');
+        if (isPlaying) {
+            bgMusic.pause();
+            musicBtn.innerHTML = '🔇';
+        } else {
+            bgMusic.play().catch(() => showMusicHint());
+            musicBtn.innerHTML = '🎵';
+        }
+        isPlaying = !isPlaying;
+    };
+    
+    document.body.appendChild(musicBtn);
+}
+
+// 页面加载完成后添加音乐控制
+document.addEventListener('DOMContentLoaded', addMusicControls);

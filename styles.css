@@ -225,6 +225,14 @@ body {
     margin-top: 40px;
 }
 
+/* 音乐控制按钮 */
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    20% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .title {

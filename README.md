@@ -47,10 +47,13 @@
 ```html
 <audio id="bgMusic" loop>
     <source src="your-music.mp3" type="audio/mpeg">
+    <source src="your-music.flac" type="audio/flac">
 </audio>
 ```
 
 然后在 `script.js` 中添加播放控制。
+
+支持格式：MP3、FLAC（无损音频）及在线音频链接
 
 ## 📱 兼容性
 
