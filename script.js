@@ -160,12 +160,35 @@ function animateButterfly(butterfly) {
 // 显示隐藏页面
 function showHiddenPage() {
     const hiddenPage = document.getElementById('hiddenPage');
+    const bgMusic = document.getElementById('bgMusic');
+    const hiddenPageMusic = document.getElementById('hiddenPageMusic');
+    
+    // 暂停背景音乐
+    bgMusic.pause();
+    
+    // 播放隐藏页面音乐
+    hiddenPageMusic.volume = 0.6;
+    hiddenPageMusic.play().catch(error => {
+        console.log('隐藏页面音乐播放失败:', error);
+    });
+    
     hiddenPage.style.display = 'flex';
 }
 
 // 关闭隐藏页面
 function closeHiddenPage() {
     const hiddenPage = document.getElementById('hiddenPage');
+    const bgMusic = document.getElementById('bgMusic');
+    const hiddenPageMusic = document.getElementById('hiddenPageMusic');
+    
+    // 暂停隐藏页面音乐
+    hiddenPageMusic.pause();
+    
+    // 恢复播放背景音乐
+    bgMusic.play().catch(error => {
+        console.log('背景音乐恢复播放失败:', error);
+    });
+    
     hiddenPage.style.display = 'none';
 }
 
