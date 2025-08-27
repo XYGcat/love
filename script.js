@@ -41,6 +41,10 @@ function startLoveLetter() {
 function showLoveResponse() {
     const letterContainer = document.querySelector('.letter-container');
     const responseContainer = document.querySelector('.response-container');
+    const heartsContainer = document.getElementById('floating-hearts');
+    
+    // 显示全屏爱心雨
+    heartsContainer.style.display = 'block';
     
     // 创建爱心雨效果
     createHeartRain();
@@ -64,18 +68,18 @@ function showLoveResponse() {
 // 创建爱心雨效果
 function createHeartRain() {
     const heartsContainer = document.getElementById('floating-hearts');
-    heartsContainer.style.display = 'block';
     
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 30; i++) {  // 增加爱心数量以获得更好的全屏效果
         setTimeout(() => {
             const heart = document.createElement('div');
             heart.innerHTML = ['❤️', '💖', '💕', '💗', '💝'][Math.floor(Math.random() * 5)];
             heart.style.position = 'absolute';
             heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
-            heart.style.animationDelay = Math.random() * 0.5 + 's';
-            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';  // 调整动画时长
+            heart.style.animationDelay = Math.random() * 1 + 's';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';  // 稍微增大爱心尺寸
             heart.style.animation = 'heartFall 3s ease-in forwards';
+            heart.style.zIndex = '1000';
             
             heartsContainer.appendChild(heart);
             
@@ -83,7 +87,7 @@ function createHeartRain() {
             setTimeout(() => {
                 heart.remove();
             }, 3000);
-        }, i * 100);
+        }, i * 150);  // 调整爱心出现的时间间隔
     }
 }
 

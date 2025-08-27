@@ -148,6 +148,18 @@ body {
     }
 }
 
+/* 全屏爱心雨 */
+.full-screen-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1000;
+}
+
 /* 交互区域 */
 .interactive-area {
     text-align: center;
@@ -329,23 +341,23 @@ body {
     .title {
         font-size: 36px;
     }
-    
+
     .letter-paper {
         padding: 30px;
     }
-    
+
     .letter-header h2 {
         font-size: 28px;
     }
-    
+
     .letter-content p {
         font-size: 16px;
     }
-    
+
     .response-content h2 {
         font-size: 36px;
     }
-    
+
     .response-content p {
         font-size: 20px;
     }
