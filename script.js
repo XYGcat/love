@@ -295,7 +295,11 @@ document.addEventListener('touchend', function(e) {
     const touchEndY = e.changedTouches[0].clientY;
     const swipeDistance = touchStartY - touchEndY;
     
-    if (Math.abs(swipeDistance) > 50) {
+    // 只有在特定元素上滑动才触发
+    const target = e.target;
+    const isButtonArea = target.closest('.start-btn') || target.closest('.love-btn');
+    
+    if (Math.abs(swipeDistance) > 50 && isButtonArea) {
         const startBtn = document.querySelector('.start-btn');
         const loveBtn = document.querySelector('.love-btn');
         
