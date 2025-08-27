@@ -173,6 +173,9 @@ function showHiddenPage() {
     });
     
     hiddenPage.style.display = 'flex';
+    
+    // 更新音乐按钮状态
+    updateMusicButtonIcon();
 }
 
 // 关闭隐藏页面
@@ -190,6 +193,9 @@ function closeHiddenPage() {
     });
     
     hiddenPage.style.display = 'none';
+    
+    // 更新音乐按钮状态
+    updateMusicButtonIcon();
 }
 
 // 添加CSS动画
@@ -380,21 +386,53 @@ function addMusicControls() {
         transition: all 0.3s ease;
     `;
     
-    let isPlaying = true;
+    const bgMusic = document.getElementById('bgMusic');
+    const hiddenPageMusic = document.getElementById('hiddenPageMusic');
     
     musicBtn.onclick = function() {
-        const bgMusic = document.getElementById('bgMusic');
-        if (isPlaying) {
-            bgMusic.pause();
-            musicBtn.innerHTML = '🔇';
+        // 判断当前哪个音频在播放，控制对应的音频
+        if (hiddenPageMusic && hiddenPageMusic.style.display !== 'none' && !hiddenPageMusic.paused) {
+            // 隐藏页面音乐正在播放
+            if (!hiddenPageMusic.paused) {
+                hiddenPageMusic.pause();
+                musicBtn.innerHTML = '🔇';
+            } else {
+                hiddenPageMusic.play().catch(() => showMusicHint());
+                musicBtn.innerHTML = '🎵';
+            }
         } else {
-            bgMusic.play().catch(() => showMusicHint());
-            musicBtn.innerHTML = '🎵';
+            // 默认控制背景音乐
+            if (!bgMusic.paused) {
+                bgMusic.pause();
+                musicBtn.innerHTML = '🔇';
+            } else {
+                bgMusic.play().catch(() => showMusicHint());
+                musicBtn.innerHTML = '🎵';
+            }
         }
-        isPlaying = !isPlaying;
     };
     
     document.body.appendChild(musicBtn);
+    
+    // 监听音频播放状态变化，更新按钮图标
+    bgMusic.addEventListener('play', updateMusicButtonIcon);
+    bgMusic.addEventListener('pause', updateMusicButtonIcon);
+    hiddenPageMusic.addEventListener('play', updateMusicButtonIcon);
+    hiddenPageMusic.addEventListener('pause', updateMusicButtonIcon);
+}
+
+// 更新音乐按钮图标
+function updateMusicButtonIcon() {
+    const musicBtn = document.querySelector('button[style*="position: fixed"]');
+    const bgMusic = document.getElementById('bgMusic');
+    const hiddenPageMusic = document.getElementById('hiddenPageMusic');
+    
+    // 判断当前是否有音频在播放
+    if (!bgMusic.paused || (hiddenPageMusic && !hiddenPageMusic.paused)) {
+        musicBtn.innerHTML = '🎵';
+    } else {
+        musicBtn.innerHTML = '🔇';
+    }
 }
 
 // 页面加载完成后添加音乐控制
